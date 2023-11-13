@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * RE:DOM is a simple library for constructing HTML elements.
  * https://redom.js.org/
@@ -26,7 +25,7 @@ export class FlatButton {
     this.el = el(
       "button.mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary",
       {
-        onclick: callback
+        onclick: callback,
       },
       text
     );
@@ -57,7 +56,7 @@ export class ItemCard {
 
     const textEl = el("div.item-text", [
       el("p.title mdl-card__title-text", name),
-      el("p.text mdl-card__supporting-text", description)
+      el("p.text mdl-card__supporting-text", description),
     ]);
     const imageEl = el("div.item-image", [el("img.img", { src: imageUrl })]);
     const footerEl = el("div.item-footer", [this.addButtonEl]);
@@ -83,14 +82,20 @@ export class ItemCardList {
   }
 
   setItems(items) {
-    this.itemCards = items.docs.map(item => {
+    this.itemCards = items.docs.map((item) => {
       return new ItemCard(item, this.callback);
     });
 
     if (this.itemCards.length > 0) {
       setChildren(this.el, this.itemCards);
     } else {
-      setChildren(this.el, el("div", "There's nothing here ... did you remember to start the emulators with --import?"));
+      setChildren(
+        this.el,
+        el(
+          "div",
+          "There's nothing here ... did you remember to start the emulators with --import?"
+        )
+      );
     }
   }
 
@@ -99,7 +104,7 @@ export class ItemCardList {
   }
 
   getCard(itemId) {
-    return this.itemCards.find(card => card.id === itemId);
+    return this.itemCards.find((card) => card.id === itemId);
   }
 }
 
@@ -117,7 +122,7 @@ export class HeaderIcon {
     this.el = el(
       "div.labeled-icon mdl-js-ripple-effect ripple-container",
       {
-        onclick: callback
+        onclick: callback,
       },
       [this.iconEl, this.textEl, el("span.mdl-ripple")]
     );
@@ -144,7 +149,7 @@ export class HeaderBar {
 
     const textEl = el("div.text", [
       el("p.title", "The Fire Store"),
-      el("p.subtitle", "Your one-stop shop for fire sales!")
+      el("p.subtitle", "Your one-stop shop for fire sales!"),
     ]);
 
     for (const icon of icons) {
@@ -166,7 +171,7 @@ export class HeaderBar {
 
 export class CartList {
   constructor(items) {
-    const children = items.map(i => {
+    const children = items.map((i) => {
       return el("li", i);
     });
 
@@ -179,13 +184,13 @@ export class ModalDialog {
     this.titleEl = el("h4.mdl-dialog__title", title);
     this.contentEl = el("div.mdl-dialog__content");
     this.actionsEl = el("div.mdl-dialog__actions", [
-      el("button.mdl-button", { type: "button", onclick: this.hide }, "Close")
+      el("button.mdl-button", { type: "button", onclick: this.hide }, "Close"),
     ]);
 
     this.el = el("dialog#modal.mdl-dialog", [
       this.titleEl,
       this.contentEl,
-      this.actionsEl
+      this.actionsEl,
     ]);
   }
 
